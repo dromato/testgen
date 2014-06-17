@@ -1,13 +1,22 @@
 package testgen.app;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.w3c.dom.Document;
+
+import com.tutego.jrtf.Rtf;
 
 import testgen.cmd.OptionsCreator;
+import testgen.input.assembler.TestAssembler;
+import testgen.input.io.XmlReader;
+import testgen.input.model.Test;
 
 public class TestGenerator {
 
@@ -19,7 +28,11 @@ public class TestGenerator {
 		handleHelp(commandLine, options);
 		validateCommandLine(commandLine);
 
-		
+		TestAssembler assembler = new TestAssembler();
+		Document document = readInput(commandLine);
+		Test test = assembler.assemblyFromXmlDocument(document);
+		Rtf rtf = assembler.assemblyRtfFromTest(test, commandLine);
+		writeRtf(commandLine, rtf);
 	}
 
 	private static void handleHelp(CommandLine commandLine, Options options) {
@@ -48,4 +61,17 @@ public class TestGenerator {
 		}
 	}
 
+	private static Document readInput(CommandLine commandLine) {
+		XmlReader reader = new XmlReader();
+		return reader.readXmlDocumentFrom(commandLine.getOptionValue("i"));
+	}
+	
+	private static void writeRtf(CommandLine commandLine, Rtf rtf) {
+		try {
+			rtf.out(new FileWriter(commandLine.getOptionValue("o")));
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+	}
 }
