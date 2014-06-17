@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test>
+	<name>Testowy test</name>
+	<section>
+		<name>Literki</name>
+		<question>
+			<content>Zaznacz A</content>
+			<answer valid="true">A</answer>
+			<answer>B</answer>
+			<answer>C</answer>
+		</question>
+		<question>
+			<content>Zaznacz B</content>
+			<answer>A</answer>
+			<answer valid="true">B</answer>
+			<answer>C</answer>
+		</question>
+		<question>
+			<content>Zaznacz C</content>
+			<answer>A</answer>
+			<answer>B</answer>
+			<answer valid="true">C</answer>
+		</question>
+	</section>
+	<section>
+		<name>Cyferki</name>
+		<question>
+			<content>Zaznacz 1</content>
+			<answer valid="true">1</answer>
+			<answer>2</answer>
+			<answer>3</answer>
+		</question>
+		<question>
+			<content>Zaznacz 2</content>
+			<answer>1</answer>
+			<answer valid="true">2</answer>
+			<answer>3</answer>
+		</question>
+		<question>
+			<content>Zaznacz 3</content>
+			<answer>1</answer>
+			<answer>2</answer>
+			<answer valid="true">3</answer>
+		</question>
+	</section>
+</test>
