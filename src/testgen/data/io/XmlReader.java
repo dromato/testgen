@@ -1,4 +1,4 @@
-package testgen.input.io;
+package testgen.data.io;
 
 import java.io.File;
 import java.io.IOException;

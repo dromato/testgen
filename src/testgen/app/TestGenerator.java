@@ -17,9 +17,9 @@ import org.xml.sax.SAXException;
 import com.tutego.jrtf.Rtf;
 
 import testgen.cmd.OptionsCreator;
-import testgen.input.assembler.TestAssembler;
-import testgen.input.io.XmlReader;
-import testgen.input.model.Test;
+import testgen.data.assembler.TestAssembler;
+import testgen.data.io.XmlReader;
+import testgen.data.model.Test;
 
 public class TestGenerator {
 
