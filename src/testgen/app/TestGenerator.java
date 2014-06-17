@@ -3,6 +3,8 @@ package testgen.app;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -10,6 +12,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import com.tutego.jrtf.Rtf;
 
@@ -63,7 +66,14 @@ public class TestGenerator {
 
 	private static Document readInput(CommandLine commandLine) {
 		XmlReader reader = new XmlReader();
-		return reader.readXmlDocumentFrom(commandLine.getOptionValue("i"));
+		Document document = null;
+		try {
+			document = reader.readXmlDocumentFrom(commandLine.getOptionValue("i"));
+		} catch (SAXException | IOException | ParserConfigurationException e) {
+			System.out.println(e.getMessage());
+			System.exit(0);
+		}
+		return document;
 	}
 	
 	private static void writeRtf(CommandLine commandLine, Rtf rtf) {
