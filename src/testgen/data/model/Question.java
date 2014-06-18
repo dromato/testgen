@@ -26,13 +26,20 @@ public class Question {
 		this.correctAnswer = correctAnswer;
 	}
 
+	public String getQuestion() {
+		return question;
+	}
+
+	public List<String> getAnswers() {
+		return answers;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
-		result = prime * result
-				+ ((correctAnswer == null) ? 0 : correctAnswer.hashCode());
+		result = prime * result + ((correctAnswer == null) ? 0 : correctAnswer.hashCode());
 		return result;
 	}
 
@@ -61,9 +68,7 @@ public class Question {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\t\tQuestion [question=").append(question)
-				.append(", answers=").append(answers)
-				.append(", correctAnswer=").append(correctAnswer).append("]");
+		builder.append("\n\t\tQuestion [question=").append(question).append(", answers=").append(answers).append(", correctAnswer=").append(correctAnswer).append("]");
 		return builder.toString();
 	}
 

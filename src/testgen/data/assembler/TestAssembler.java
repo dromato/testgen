@@ -26,25 +26,21 @@ import static com.tutego.jrtf.RtfUnit.*;
 public class TestAssembler {
 	protected class SectionAssembler {
 		protected class QuestionAssembler {
+			private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+			
 			public Question assemblyQuestionFromNode(Node node) {
 				Element element = (Element) node;
-				String questionContent = element
-						.getElementsByTagName("content").item(0)
-						.getTextContent();
+				String questionContent = element.getElementsByTagName("content").item(0).getTextContent();
 				Question question = new Question(questionContent);
-				NodeList answerNodesList = element
-						.getElementsByTagName("answer");
+				NodeList answerNodesList = element.getElementsByTagName("answer");
 
 				for (int i = 0; i < answerNodesList.getLength(); i++) {
 					Node answerNode = answerNodesList.item(i);
 					question.appendAnswer(answerNode.getTextContent());
 					if (answerNode.hasAttributes()) {
 						if (answerNode.getAttributes().getNamedItem("valid") != null) {
-							if (answerNode.getAttributes()
-									.getNamedItem("valid").getFirstChild()
-									.getTextContent().equals("true")) {
-								question.setCorrectAnswer(answerNode
-										.getTextContent());
+							if (answerNode.getAttributes().getNamedItem("valid").getFirstChild().getTextContent().equals("true")) {
+								question.setCorrectAnswer(answerNode.getTextContent());
 							}
 						}
 					}
@@ -53,9 +49,14 @@ public class TestAssembler {
 				return question;
 			}
 
-			public Rtf assemblyRtfFromQuestion(Question question) {
-				// TODO Auto-generated method stub
-				return null;
+			public StringBuilder assemblyStringFromQuestion(Question question) {
+				StringBuilder questionBuilder = new StringBuilder();
+				questionBuilder.append("\t").append(question.getQuestion());
+				int answerN = 0;
+				for(String answer : question.getAnswers()) {
+					questionBuilder.append("\n\t\t" + ALPHABET.charAt(answerN++) + ") " + answer);
+				}
+				return questionBuilder;
 			}
 		}
 
@@ -67,29 +68,24 @@ public class TestAssembler {
 
 		public Section assemblySectionFromNode(Node node) {
 			Element element = (Element) node;
-			String sectionName = element.getElementsByTagName("name").item(0)
-					.getFirstChild().getTextContent();
+			String sectionName = element.getElementsByTagName("name").item(0).getFirstChild().getTextContent();
 			Section section = new Section(sectionName);
-			NodeList questionNodesList = element
-					.getElementsByTagName("question");
+			NodeList questionNodesList = element.getElementsByTagName("question");
 
 			for (int i = 0; i < questionNodesList.getLength(); i++) {
-				section.appendQuestion(questionAssembler
-						.assemblyQuestionFromNode(questionNodesList.item(i)));
+				section.appendQuestion(questionAssembler.assemblyQuestionFromNode(questionNodesList.item(i)));
 			}
 
 			return section;
 		}
 
-		public Rtf assemblyRtfFromSection(Section section) {
-			Rtf sectionRtf = rtf().section(
-					p(font(3,bold(section.getName()))).alignCentered()
-							);
-			
-			for(Question question : section.getQuestions()) {
-				sectionRtf.p(questionAssembler.assemblyRtfFromQuestion(question));
+		public StringBuilder assemblyStringFromSection(Section section) {
+			StringBuilder sectionBuilder = new StringBuilder();
+			sectionBuilder.append(section.getName());
+			for (Question question : section.getQuestions()) {
+				sectionBuilder.append("\n\t").append(questionAssembler.assemblyStringFromQuestion(question)).append("\n");
 			}
-			return sectionRtf;
+			return sectionBuilder;
 		}
 	}
 
@@ -100,30 +96,29 @@ public class TestAssembler {
 	}
 
 	public Test assemblyFromXmlDocument(Document document) {
-		String testName = document.getElementsByTagName("test-name").item(0)
-				.getFirstChild().getTextContent();
+		String testName = document.getElementsByTagName("test-name").item(0).getFirstChild().getTextContent();
 		NodeList secionNodesList = document.getElementsByTagName("section");
 		Test test = new Test(testName);
 
 		for (int i = 0; i < secionNodesList.getLength(); i++) {
-			test.appendSection(sectionAssembler
-					.assemblySectionFromNode(secionNodesList.item(i)));
+			test.appendSection(sectionAssembler.assemblySectionFromNode(secionNodesList.item(i)));
 		}
 
 		return test;
 	}
 
-	public Rtf assemblyRtfFromTest(Test test, CommandLine commandLine) {
+	public StringBuilder assemblyStringFromTest(Test test, CommandLine commandLine) {
 		int size = commandLine.hasOption("s") ? Integer.valueOf(commandLine.getOptionValue("s")) : -1;
 		int nOfGroups = commandLine.hasOption("g") ? Integer.valueOf(commandLine.getOptionValue("g")) : 1;
 		boolean equalDistribution = commandLine.hasOption("e");
 		boolean randomizeAnswers = commandLine.hasOption("r");
-		
-		Rtf testRtf = rtf().section(p(font(4, test.getName())).alignCentered());
-		for(Section section : test.getSections()) {
-			testRtf.p(sectionAssembler.assemblyRtfFromSection(section));
+
+		StringBuilder testBuilder = new StringBuilder();
+		testBuilder.append(test.getName()).append("\n\n");
+		for (Section section : test.getSections()) {
+			testBuilder.append(sectionAssembler.assemblyStringFromSection(section)).append("\n\n");
 		}
-		
-		return testRtf;
+
+		return testBuilder;
 	}
 }

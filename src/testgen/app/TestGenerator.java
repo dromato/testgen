@@ -34,12 +34,12 @@ public class TestGenerator {
 		TestAssembler assembler = new TestAssembler();
 		Document document = readInput(commandLine);
 		Test test = assembler.assemblyFromXmlDocument(document);
-		Rtf rtf = assembler.assemblyRtfFromTest(test, commandLine);
-		writeRtf(commandLine, rtf);
+		StringBuilder output = assembler.assemblyStringFromTest(test, commandLine);
+		writeOutput(commandLine, output);
 	}
 
 	private static void handleHelp(CommandLine commandLine, Options options) {
-		if(commandLine.hasOption("h")) {
+		if (commandLine.hasOption("h")) {
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp("testgen", options);
 			System.exit(1);
@@ -47,14 +47,13 @@ public class TestGenerator {
 	}
 
 	private static void validateCommandLine(CommandLine commandLine) {
-		if(!commandLine.hasOption("i") || !commandLine.hasOption("o")) {
+		if (!commandLine.hasOption("i") || !commandLine.hasOption("o")) {
 			System.out.println("Both input and output files are needed.");
 			System.exit(1);
 		}
 	}
 
-	private static CommandLine parseInputArgs(String[] args, Options options,
-			CommandLineParser parser) {
+	private static CommandLine parseInputArgs(String[] args, Options options, CommandLineParser parser) {
 		try {
 			return parser.parse(options, args);
 		} catch (ParseException e) {
@@ -75,13 +74,24 @@ public class TestGenerator {
 		}
 		return document;
 	}
-	
-	private static void writeRtf(CommandLine commandLine, Rtf rtf) {
+
+	private static void writeOutput(CommandLine commandLine, StringBuilder output) {
+		FileWriter writer = null;
 		try {
-			rtf.out(new FileWriter(commandLine.getOptionValue("o")));
+			writer = new FileWriter(commandLine.getOptionValue("o"));
+			writer.write(output.toString());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			System.exit(1);
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					System.out.println(e.getMessage());
+					System.exit(1);
+				}
+			}
 		}
 	}
 }
