@@ -13,6 +13,16 @@ import testgen.data.model.Test;
 
 import com.tutego.jrtf.Rtf;
 
+import static com.tutego.jrtf.Rtf.rtf;
+import static com.tutego.jrtf.RtfDocfmt.*;
+import static com.tutego.jrtf.RtfHeader.*;
+import static com.tutego.jrtf.RtfInfo.*;
+import static com.tutego.jrtf.RtfFields.*;
+import static com.tutego.jrtf.RtfPara.*;
+import static com.tutego.jrtf.RtfSectionFormatAndHeaderFooter.*;
+import static com.tutego.jrtf.RtfText.*;
+import static com.tutego.jrtf.RtfUnit.*;
+
 public class TestAssembler {
 	protected class SectionAssembler {
 		protected class QuestionAssembler {
@@ -30,14 +40,22 @@ public class TestAssembler {
 					question.appendAnswer(answerNode.getTextContent());
 					if (answerNode.hasAttributes()) {
 						if (answerNode.getAttributes().getNamedItem("valid") != null) {
-							if(answerNode.getAttributes().getNamedItem("valid").getFirstChild().getTextContent().equals("true")) {
-								question.setCorrectAnswer(answerNode.getTextContent());
+							if (answerNode.getAttributes()
+									.getNamedItem("valid").getFirstChild()
+									.getTextContent().equals("true")) {
+								question.setCorrectAnswer(answerNode
+										.getTextContent());
 							}
 						}
 					}
 				}
 
 				return question;
+			}
+
+			public Rtf assemblyRtfFromQuestion(Question question) {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}
 
@@ -62,6 +80,17 @@ public class TestAssembler {
 
 			return section;
 		}
+
+		public Rtf assemblyRtfFromSection(Section section) {
+			Rtf sectionRtf = rtf().section(
+					p(font(3,bold(section.getName()))).alignCentered()
+							);
+			
+			for(Question question : section.getQuestions()) {
+				sectionRtf.p(questionAssembler.assemblyRtfFromQuestion(question));
+			}
+			return sectionRtf;
+		}
 	}
 
 	private SectionAssembler sectionAssembler;
@@ -80,12 +109,21 @@ public class TestAssembler {
 			test.appendSection(sectionAssembler
 					.assemblySectionFromNode(secionNodesList.item(i)));
 		}
-		
-		System.out.println(test.toString());
+
 		return test;
 	}
 
 	public Rtf assemblyRtfFromTest(Test test, CommandLine commandLine) {
-		throw new NotImplementedException();
+		int size = commandLine.hasOption("s") ? Integer.valueOf(commandLine.getOptionValue("s")) : -1;
+		int nOfGroups = commandLine.hasOption("g") ? Integer.valueOf(commandLine.getOptionValue("g")) : 1;
+		boolean equalDistribution = commandLine.hasOption("e");
+		boolean randomizeAnswers = commandLine.hasOption("r");
+		
+		Rtf testRtf = rtf().section(p(font(4, test.getName())).alignCentered());
+		for(Section section : test.getSections()) {
+			testRtf.p(sectionAssembler.assemblyRtfFromSection(section));
+		}
+		
+		return testRtf;
 	}
 }

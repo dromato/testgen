@@ -44,10 +44,6 @@ public class OptionsCreator {
 				.withArgName("No. of groups")
 				.create("g"));
 		options.addOption(OptionBuilder
-				.withLongOpt("distinct-groups")
-				.withDescription("Make every group distincs.")
-				.create("d"));		
-		options.addOption(OptionBuilder
 				.withLongOpt("generate-key")
 				.withDescription("Generates key for test verification.")
 				.create("k"));

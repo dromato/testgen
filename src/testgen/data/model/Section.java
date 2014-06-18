@@ -21,6 +21,10 @@ public class Section {
 		return name;
 	}
 
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
