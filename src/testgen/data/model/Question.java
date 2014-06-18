@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
+	private String question;
 	private List<String> answers;
 	private String correctAnswer;
-	private String questionContent;
 
-	public Question(String questionContent) {
-		this.questionContent = questionContent;
+	public Question(String question) {
+		this.question = question;
 		this.answers = new ArrayList<>();
 	}
 
@@ -61,10 +61,10 @@ public class Question {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Question [answers=").append(answers)
-				.append(", correctAnswer=").append(correctAnswer)
-				.append(", questionContent=").append(questionContent)
-				.append("]");
+		builder.append("\n\t\tQuestion [question=").append(question)
+				.append(", answers=").append(answers)
+				.append(", correctAnswer=").append(correctAnswer).append("]");
 		return builder.toString();
 	}
+
 }

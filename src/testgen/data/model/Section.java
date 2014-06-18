@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Section {
-	private List<Question> questions;
 	private String name;
+	private List<Question> questions;
 
 	public Section(String name) {
 		this.name = name;
@@ -50,8 +50,9 @@ public class Section {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Section [questions=").append(questions)
-				.append(", name=").append(name).append("]");
+		builder.append("\n\tSection [name=").append(name).append(", questions=")
+				.append(questions).append("]");
 		return builder.toString();
 	}
+
 }
