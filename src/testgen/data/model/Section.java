@@ -46,4 +46,12 @@ public class Section {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Section [questions=").append(questions)
+				.append(", name=").append(name).append("]");
+		return builder.toString();
+	}
 }

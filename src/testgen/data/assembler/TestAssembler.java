@@ -2,6 +2,7 @@ package testgen.data.assembler;
 
 import org.apache.commons.cli.CommandLine;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -14,36 +15,74 @@ import com.tutego.jrtf.Rtf;
 
 public class TestAssembler {
 	protected class SectionAssembler {
-		public Section assemblySectionFromNode(Node node) {
-			return null;
-			
-		}
-	}
+		protected class QuestionAssembler {
+			public Question assemblyQuestionFromNode(Node node) {
+				Element element = (Element) node;
+				String questionContent = element
+						.getElementsByTagName("content").item(0)
+						.getTextContent();
+				Question question = new Question(questionContent);
+				NodeList answerNodesList = element
+						.getElementsByTagName("answer");
 
-	protected class QuestionAssembler {
-		public Question assemblyQuestionFromNode(Node node) {
-			return null;
-			
+				for (int i = 0; i < answerNodesList.getLength(); i++) {
+					Node answerNode = answerNodesList.item(i);
+					question.appendAnswer(answerNode.getTextContent());
+					if (answerNode.hasAttributes()) {
+						if (answerNode.getAttributes().getNamedItem("valid") != null) {
+							if(answerNode.getAttributes().getNamedItem("valid").getFirstChild().getTextContent().equals("true")) {
+								question.setCorrectAnswer(answerNode.getTextContent());
+							}
+						}
+					}
+				}
+
+				return question;
+			}
+		}
+
+		private QuestionAssembler questionAssembler;
+
+		public SectionAssembler() {
+			this.questionAssembler = new QuestionAssembler();
+		}
+
+		public Section assemblySectionFromNode(Node node) {
+			Element element = (Element) node;
+			String sectionName = element.getElementsByTagName("name").item(0)
+					.getFirstChild().getTextContent();
+			Section section = new Section(sectionName);
+			NodeList questionNodesList = element
+					.getElementsByTagName("question");
+
+			for (int i = 0; i < questionNodesList.getLength(); i++) {
+				section.appendQuestion(questionAssembler
+						.assemblyQuestionFromNode(questionNodesList.item(i)));
+			}
+
+			return section;
 		}
 	}
 
 	private SectionAssembler sectionAssembler;
-	private QuestionAssembler questionAssembler;
-	
+
 	public TestAssembler() {
 		this.sectionAssembler = new SectionAssembler();
-		this.questionAssembler = new QuestionAssembler();
 	}
 
 	public Test assemblyFromXmlDocument(Document document) {
 		String testName = document.getElementsByTagName("test-name").item(0)
-				.getChildNodes().item(0).getTextContent();
+				.getFirstChild().getTextContent();
 		NodeList secionNodesList = document.getElementsByTagName("section");
 		Test test = new Test(testName);
+
 		for (int i = 0; i < secionNodesList.getLength(); i++) {
-			
+			test.appendSection(sectionAssembler
+					.assemblySectionFromNode(secionNodesList.item(i)));
 		}
-		return null;
+		
+		System.out.println(test.toString());
+		return test;
 	}
 
 	public Rtf assemblyRtfFromTest(Test test, CommandLine commandLine) {

@@ -53,4 +53,12 @@ public class Test {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Test [name=").append(name).append(", sections=")
+				.append(sections).append("]");
+		return builder.toString();
+	}
 }
