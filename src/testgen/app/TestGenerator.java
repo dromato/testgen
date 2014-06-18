@@ -35,6 +35,7 @@ public class TestGenerator {
 		Document document = readInput(commandLine);
 		Test test = assembler.assemblyFromXmlDocument(document);
 		StringBuilder output = assembler.assemblyStringFromTest(test, commandLine);
+		StringBuilder output = assembler.assemblyKeyFormTest(test);
 		writeOutput(commandLine, output);
 	}
 

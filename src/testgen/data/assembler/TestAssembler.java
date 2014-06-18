@@ -58,6 +58,20 @@ public class TestAssembler {
 				}
 				return questionBuilder;
 			}
+
+			public Object assemblyKeyFromQuestion(Question question) {
+				StringBuilder questionBuilder = new StringBuilder();
+				questionBuilder.append("\t").append(question.getQuestion());
+				int answerN = 0;
+				for(String answer : question.getAnswers()) {
+					if(!answer.equals(question.getCorrectAnswer())) {
+						answerN++;
+						continue;
+					}
+					questionBuilder.append("\n\t\t" + ALPHABET.charAt(answerN++) + ") " + answer);
+				}
+				return questionBuilder;
+			}
 		}
 
 		private QuestionAssembler questionAssembler;
@@ -84,6 +98,15 @@ public class TestAssembler {
 			sectionBuilder.append(section.getName());
 			for (Question question : section.getQuestions()) {
 				sectionBuilder.append("\n\t").append(questionAssembler.assemblyStringFromQuestion(question)).append("\n");
+			}
+			return sectionBuilder;
+		}
+
+		public Object assemblyKeyFromSection(Section section) {
+			StringBuilder sectionBuilder = new StringBuilder();
+			sectionBuilder.append(section.getName());
+			for (Question question : section.getQuestions()) {
+				sectionBuilder.append("\n\t").append(questionAssembler.assemblyKeyFromQuestion(question)).append("\n");
 			}
 			return sectionBuilder;
 		}
@@ -117,6 +140,16 @@ public class TestAssembler {
 		testBuilder.append(test.getName()).append("\n\n");
 		for (Section section : test.getSections()) {
 			testBuilder.append(sectionAssembler.assemblyStringFromSection(section)).append("\n\n");
+		}
+
+		return testBuilder;
+	}
+	
+	public StringBuilder assemblyKeyFormTest(Test test) {
+		StringBuilder testBuilder = new StringBuilder();
+		testBuilder.append(test.getName()).append("\n\n");
+		for (Section section : test.getSections()) {
+			testBuilder.append(sectionAssembler.assemblyKeyFromSection(section)).append("\n\n");
 		}
 
 		return testBuilder;
