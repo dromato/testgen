@@ -1,11 +1,12 @@
-<project name="TestGenerator" basedir="." default="run">
+<project name="TestGenerator" basedir="." default="jar">
 	<property name="dir.src" value="src" />
 	<property name="dir.build" value="build" />
 	<property name="dir.classes" value="${dir.build}/classes" />
 	<property name="dir.jar" value="${dir.build}/jar" />
 	<property name="dir.lib" value="libs" />
+	<property name="file.jar" value="${dir.jar}/${ant.project.name}.jar" />
 
-	<property name="classes.main" value="testgen.app.TestGenerator" />
+	<property name="main-class" value="testgen.app.TestGenerator" />
 
 	<path id="classpath">
 		<fileset dir="${dir.lib}" includes="**/*.jar" />
@@ -22,18 +23,16 @@
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${dir.jar}" />
-		<jar destfile="${dir.jar}/${ant.project.name}.jar" basedir="${dir.classes}">
+
+		<manifestclasspath property="manifest.classpath" jarfile="${file.jar}">
+			<classpath refid="classpath" />
+		</manifestclasspath>
+
+		<jar destfile="${file.jar}" basedir="${dir.classes}">
 			<manifest>
-				<attribute name="Main-Class" value="${classes.main}" />
+				<attribute name="Main-Class" value="${main-class}" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
-	</target>
-
-	<target name="wrap" depends="jar">
-
-	</target>
-
-	<target name="run" depends="wrap">
-
 	</target>
 </project>
