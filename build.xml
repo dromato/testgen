@@ -3,7 +3,7 @@
 	<property name="dir.build" value="build" />
 	<property name="dir.classes" value="${dir.build}/classes" />
 	<property name="dir.jar" value="${dir.build}/jar" />
-	<property name="dir.lib" value="libs" />
+	<property name="dir.lib" value="lib" />
 	<property name="file.jar" value="${dir.jar}/${ant.project.name}.jar" />
 
 	<property name="main-class" value="testgen.app.TestGenerator" />
@@ -24,14 +24,11 @@
 	<target name="jar" depends="compile">
 		<mkdir dir="${dir.jar}" />
 
-		<manifestclasspath property="manifest.classpath" jarfile="${file.jar}">
-			<classpath refid="classpath" />
-		</manifestclasspath>
-
 		<jar destfile="${file.jar}" basedir="${dir.classes}">
+			<fileset dir="${dir.classes}" includes="**/*.class" />
+			<zipgroupfileset dir="${dir.lib}" includes="**/*.jar" />
 			<manifest>
 				<attribute name="Main-Class" value="${main-class}" />
-				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
 	</target>
