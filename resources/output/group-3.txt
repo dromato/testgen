@@ -1,71 +1,71 @@
 Testowy test
 
 Literki
-		Zaznacz A
-		a) C
-		b) A
-		c) E
-		d) B
-		e) D
+		Zaznacz B
+		a) A
+		b) B
+		c) D
+		d) C
+		e) E
 
-		Zaznacz E
-		a) B
-		b) A
-		c) C
-		d) E
+		Zaznacz D
+		a) C
+		b) E
+		c) B
+		d) A
 		e) D
 
 		Zaznacz C
-		a) B
-		b) A
-		c) D
-		d) E
-		e) C
+		a) C
+		b) B
+		c) E
+		d) D
+		e) A
 
 
 Cyferki
-		Zaznacz 3
-		a) 2
-		b) 1
-		c) 4
-		d) 3
-		e) 5
-
 		Zaznacz 4
-		a) 2
-		b) 4
+		a) 3
+		b) 2
 		c) 5
-		d) 3
-		e) 1
+		d) 1
+		e) 4
+
+		Zaznacz 3
+		a) 3
+		b) 5
+		c) 1
+		d) 4
+		e) 2
 
 		Zaznacz 2
-		a) 2
-		b) 4
-		c) 3
+		a) 4
+		b) 2
+		c) 1
 		d) 5
-		e) 1
+		e) 3
 
 
 Kolory
-		Zaznacz zielony
-		a) niebieski
-		b) fioletowy
-		c) czarny
-		d) czerwony
-		e) zielony
+		Zaznacz czarny
+		a) czarny
+		b) czerwony
+		c) fioletowy
+		d) zielony
+		e) niebieski
 
 		Zaznacz niebieski
-		a) zielony
-		b) niebieski
+		a) czarny
+		b) czerwony
 		c) fioletowy
-		d) czerwony
-		e) czarny
+		d) zielony
+		e) niebieski
 
-		Zaznacz czarny
-		a) fioletowy
+		Zaznacz fioletowy
+		a) niebieski
 		b) zielony
-		c) czerwony
-		d) niebieski
-		e) czarny
+		c) czarny
+		d) fioletowy
+		e) czerwony
 
 
