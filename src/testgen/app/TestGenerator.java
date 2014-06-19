@@ -1,5 +1,6 @@
 package testgen.app;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -34,9 +35,18 @@ public class TestGenerator {
 		TestAssembler assembler = new TestAssembler();
 		Document document = readInput(commandLine);
 		Test test = assembler.assemblyFromXmlDocument(document);
+		
+		createOutputDirectory(commandLine.getOptionValue("o"));
+		
 		StringBuilder output = assembler.assemblyStringFromTest(test, commandLine);
-		StringBuilder output = assembler.assemblyKeyFormTest(test);
 		writeOutput(commandLine, output);
+	}
+
+	private static void createOutputDirectory(String dir) {
+		if(!new File(dir).mkdir()) {
+			System.out.println("Can not create directory: " + dir);
+			System.exit(1);
+		}
 	}
 
 	private static void handleHelp(CommandLine commandLine, Options options) {

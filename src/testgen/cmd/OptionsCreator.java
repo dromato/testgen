@@ -14,10 +14,10 @@ public class OptionsCreator {
 				.withArgName("Input file path")
 				.create("i"));
 		options.addOption(OptionBuilder
-				.withLongOpt("output-file")
+				.withLongOpt("output")
 				.withDescription("Path to which output will be written.")
 				.hasArg()
-				.withArgName("Output file path")
+				.withArgName("Output folder")
 				.create("o"));
 		options.addOption(OptionBuilder
 				.withLongOpt("help")
@@ -33,10 +33,6 @@ public class OptionsCreator {
 				.withLongOpt("equal-distribution")
 				.withDescription("Tries to distributes equally questions from sections.")
 				.create("e"));
-		options.addOption(OptionBuilder
-				.withLongOpt("randomize")
-				.withDescription("Randomize answers.")
-				.create("r"));
 		options.addOption(OptionBuilder
 				.withLongOpt("groups")
 				.withDescription("Specifies how many test groups will be created.")
