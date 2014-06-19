@@ -38,8 +38,16 @@ public class TestGenerator {
 		
 		createOutputDirectory(commandLine.getOptionValue("o"));
 		
-		StringBuilder output = assembler.assemblyStringFromTest(test, commandLine);
-		writeOutput(commandLine, output);
+		int nOfGroups = commandLine.hasOption("g") ? Integer.valueOf(commandLine.getOptionValue("g")) : 1;
+		StringBuilder output;
+		for(int i = 0; i < nOfGroups; i++) {
+			output = assembler.assemblyStringFromTest(test, commandLine);
+			writeOutput(commandLine, output, "group-" + i + ".txt");
+		}
+		if(commandLine.hasOption("k")) {
+			output = assembler.assemblyKeyFormTest(test);
+			writeOutput(commandLine, output, "key.txt");
+		}
 	}
 
 	private static void createOutputDirectory(String dir) {
@@ -86,10 +94,10 @@ public class TestGenerator {
 		return document;
 	}
 
-	private static void writeOutput(CommandLine commandLine, StringBuilder output) {
+	private static void writeOutput(CommandLine commandLine, StringBuilder output, String fileName) {
 		FileWriter writer = null;
 		try {
-			writer = new FileWriter(commandLine.getOptionValue("o"));
+			writer = new FileWriter(commandLine.getOptionValue("o") + System.getProperty("file.separator") + fileName);
 			writer.write(output.toString());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());

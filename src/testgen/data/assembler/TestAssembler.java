@@ -133,11 +133,15 @@ public class TestAssembler {
 	public StringBuilder assemblyStringFromTest(Test test, CommandLine commandLine) {
 		int size = commandLine.hasOption("s") ? Integer.valueOf(commandLine.getOptionValue("s")) : -1;
 		int questionsPerSection = size / test.getNOfSections();
+		boolean randomizeAnswers = commandLine.hasOption("r");
 		
 		StringBuilder testBuilder = new StringBuilder();
 		testBuilder.append(test.getName()).append("\n\n");
 		
 		for (Section section : test.getSectionsWithNOfQuestionsReduced(questionsPerSection)) {
+			if(randomizeAnswers) {
+				section.shuffleAnswers();
+			}
 			testBuilder.append(sectionAssembler.assemblyStringFromSection(section)).append("\n\n");
 		}
 

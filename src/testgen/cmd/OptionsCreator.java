@@ -43,6 +43,10 @@ public class OptionsCreator {
 				.withLongOpt("generate-key")
 				.withDescription("Generates key for test verification.")
 				.create("k"));
+		options.addOption(OptionBuilder
+				.withLongOpt("randomize")
+				.withDescription("Randomizes answers.")
+				.create("r"));
 		
 		return options;
 	}

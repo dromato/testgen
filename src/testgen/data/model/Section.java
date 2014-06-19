@@ -1,6 +1,7 @@
 package testgen.data.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -21,15 +22,19 @@ public class Section {
 		if (n < 0) {
 			return;
 		}
-		
+
 		if (n > questions.size()) {
 			throw new IllegalArgumentException("There is only " + questions.size() + " questions in section " + name + ", but " + n + " was requested.");
 		}
-		
-		Random r = new Random();
-		while(questions.size() > n) {
-			int toBeRemoved = r.nextInt(questions.size());
-			questions.remove(toBeRemoved);
+		Collections.shuffle(questions);
+		while (questions.size() > n) {
+			questions.remove(questions.size() - 1);
+		}
+	}
+
+	public void shuffleAnswers() {
+		for(Question question : questions) {
+			question.shuffleAnswers();
 		}
 	}
 

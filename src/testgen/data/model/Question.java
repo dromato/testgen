@@ -1,6 +1,7 @@
 package testgen.data.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Question {
@@ -41,6 +42,10 @@ public class Question {
 		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
 		result = prime * result + ((correctAnswer == null) ? 0 : correctAnswer.hashCode());
 		return result;
+	}
+
+	public void shuffleAnswers() {
+		Collections.shuffle(answers);
 	}
 
 	@Override
