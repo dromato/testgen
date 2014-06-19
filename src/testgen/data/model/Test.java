@@ -23,8 +23,8 @@ public class Test {
 	}
 	
 	public List<Section> getSectionsWithNOfQuestionsReduced(int n) {
-		List<Section> result = new ArrayList<>();
-		Collections.copy(result, sections);
+		List<Section> result = new ArrayList<>(sections.size());
+		result.addAll(sections);
 		for(Section section : result) {
 			section.reduceNOfQuestionsTo(n);
 		}

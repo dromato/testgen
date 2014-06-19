@@ -1,27 +1,16 @@
 package testgen.data.assembler;
 
+import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import testgen.data.model.Question;
 import testgen.data.model.Section;
 import testgen.data.model.Test;
-
-import com.tutego.jrtf.Rtf;
-
-import static com.tutego.jrtf.Rtf.rtf;
-import static com.tutego.jrtf.RtfDocfmt.*;
-import static com.tutego.jrtf.RtfHeader.*;
-import static com.tutego.jrtf.RtfInfo.*;
-import static com.tutego.jrtf.RtfFields.*;
-import static com.tutego.jrtf.RtfPara.*;
-import static com.tutego.jrtf.RtfSectionFormatAndHeaderFooter.*;
-import static com.tutego.jrtf.RtfText.*;
-import static com.tutego.jrtf.RtfUnit.*;
 
 public class TestAssembler {
 	protected class SectionAssembler {
@@ -68,7 +57,7 @@ public class TestAssembler {
 						answerN++;
 						continue;
 					}
-					questionBuilder.append("\n\t\t" + ALPHABET.charAt(answerN++) + ") " + answer);
+					questionBuilder.append("\n\t\t-> " + answer);
 				}
 				return questionBuilder;
 			}
@@ -131,14 +120,19 @@ public class TestAssembler {
 	}
 
 	public StringBuilder assemblyStringFromTest(Test test, CommandLine commandLine) {
-		int size = commandLine.hasOption("s") ? Integer.valueOf(commandLine.getOptionValue("s")) : -1;
-		int questionsPerSection = size / test.getNOfSections();
-		boolean randomizeAnswers = commandLine.hasOption("r");
-		
 		StringBuilder testBuilder = new StringBuilder();
 		testBuilder.append(test.getName()).append("\n\n");
+
+		boolean randomizeAnswers = commandLine.hasOption("r");
+		List<Section> sections = null;
+		if(commandLine.hasOption("s")) {
+			int questionsPerSection = Integer.valueOf(commandLine.getOptionValue("s"));
+			sections = test.getSectionsWithNOfQuestionsReduced(questionsPerSection);
+		} else {
+			sections = test.getSections();
+		}
 		
-		for (Section section : test.getSectionsWithNOfQuestionsReduced(questionsPerSection)) {
+		for (Section section : sections) {
 			if(randomizeAnswers) {
 				section.shuffleAnswers();
 			}

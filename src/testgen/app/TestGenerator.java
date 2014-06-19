@@ -3,6 +3,9 @@ package testgen.app;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Paths;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -14,8 +17,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import com.tutego.jrtf.Rtf;
 
 import testgen.cmd.OptionsCreator;
 import testgen.data.assembler.TestAssembler;
@@ -42,7 +43,7 @@ public class TestGenerator {
 		StringBuilder output;
 		for(int i = 0; i < nOfGroups; i++) {
 			output = assembler.assemblyStringFromTest(test, commandLine);
-			writeOutput(commandLine, output, "group-" + i + ".txt");
+			writeOutput(commandLine, output, "group-" + (i + 1) + ".txt");
 		}
 		if(commandLine.hasOption("k")) {
 			output = assembler.assemblyKeyFormTest(test);
@@ -51,6 +52,9 @@ public class TestGenerator {
 	}
 
 	private static void createOutputDirectory(String dir) {
+		if(Files.exists(Paths.get(dir), LinkOption.NOFOLLOW_LINKS)) {
+			return;
+		}
 		if(!new File(dir).mkdir()) {
 			System.out.println("Can not create directory: " + dir);
 			System.exit(1);

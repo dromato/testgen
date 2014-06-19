@@ -8,18 +8,40 @@
 			<answer valid="true">A</answer>
 			<answer>B</answer>
 			<answer>C</answer>
+			<answer>D</answer>
+			<answer>E</answer>
 		</question>
 		<question>
 			<content>Zaznacz B</content>
 			<answer>A</answer>
 			<answer valid="true">B</answer>
 			<answer>C</answer>
+			<answer>D</answer>
+			<answer>E</answer>
 		</question>
 		<question>
 			<content>Zaznacz C</content>
 			<answer>A</answer>
 			<answer>B</answer>
 			<answer valid="true">C</answer>
+			<answer>D</answer>
+			<answer>E</answer>
+		</question>
+		<question>
+			<content>Zaznacz D</content>
+			<answer>A</answer>
+			<answer>B</answer>
+			<answer>C</answer>
+			<answer valid="true">D</answer>
+			<answer>E</answer>
+		</question>
+		<question>
+			<content>Zaznacz E</content>
+			<answer>A</answer>
+			<answer>B</answer>
+			<answer>C</answer>
+			<answer>D</answer>
+			<answer valid="true">E</answer>
 		</question>
 	</section>
 	<section>
@@ -29,18 +51,83 @@
 			<answer valid="true">1</answer>
 			<answer>2</answer>
 			<answer>3</answer>
+			<answer>4</answer>
+			<answer>5</answer>
 		</question>
 		<question>
 			<content>Zaznacz 2</content>
 			<answer>1</answer>
 			<answer valid="true">2</answer>
 			<answer>3</answer>
+			<answer>4</answer>
+			<answer>5</answer>
 		</question>
 		<question>
 			<content>Zaznacz 3</content>
 			<answer>1</answer>
 			<answer>2</answer>
 			<answer valid="true">3</answer>
+			<answer>4</answer>
+			<answer>5</answer>
+		</question>
+		<question>
+			<content>Zaznacz 4</content>
+			<answer>1</answer>
+			<answer>2</answer>
+			<answer>3</answer>
+			<answer valid="true">4</answer>
+			<answer>5</answer>
+		</question>
+		<question>
+			<content>Zaznacz 5</content>
+			<answer>1</answer>
+			<answer>2</answer>
+			<answer>3</answer>
+			<answer>4</answer>
+			<answer valid="true">5</answer>
+		</question>
+	</section>
+	<section>
+		<name>Kolory</name>
+		<question>
+			<content>Zaznacz zielony</content>
+			<answer valid="true">zielony</answer>
+			<answer>niebieski</answer>
+			<answer>czarny</answer>
+			<answer>fioletowy</answer>
+			<answer>czerwony</answer>
+		</question>
+		<question>
+			<content>Zaznacz niebieski</content>
+			<answer>zielony</answer>
+			<answer valid="true">niebieski</answer>
+			<answer>czarny</answer>
+			<answer>fioletowy</answer>
+			<answer>czerwony</answer>
+		</question>
+		<question>
+			<content>Zaznacz czarny</content>
+			<answer>zielony</answer>
+			<answer>niebieski</answer>
+			<answer valid="true">czarny</answer>
+			<answer>fioletowy</answer>
+			<answer>czerwony</answer>
+		</question>
+		<question>
+			<content>Zaznacz fioletowy</content>
+			<answer>zielony</answer>
+			<answer>niebieski</answer>
+			<answer>czarny</answer>
+			<answer valid="true">fioletowy</answer>
+			<answer>czerwony</answer>
+		</question>
+		<question>
+			<content>Zaznacz czerwony</content>
+			<answer>zielony</answer>
+			<answer>niebieski</answer>
+			<answer>czarny</answer>
+			<answer>fioletowy</answer>
+			<answer valid="true">czerwony</answer>
 		</question>
 	</section>
 </test>

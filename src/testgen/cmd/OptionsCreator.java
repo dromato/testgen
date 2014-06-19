@@ -25,7 +25,7 @@ public class OptionsCreator {
 				.create("h"));
 		options.addOption(OptionBuilder
 				.withLongOpt("size")
-				.withDescription("Specifies how many questions should be taken into test.")
+				.withDescription("Specifies how many questions should be taken into test from each section.")
 				.hasArg()
 				.withArgName("No. of questions")
 				.create("s"));

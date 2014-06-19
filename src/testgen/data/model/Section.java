@@ -19,10 +19,6 @@ public class Section {
 	}
 
 	public void reduceNOfQuestionsTo(int n) {
-		if (n < 0) {
-			return;
-		}
-
 		if (n > questions.size()) {
 			throw new IllegalArgumentException("There is only " + questions.size() + " questions in section " + name + ", but " + n + " was requested.");
 		}
