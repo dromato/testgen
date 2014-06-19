@@ -24,7 +24,7 @@ import testgen.data.io.XmlReader;
 import testgen.data.model.Test;
 
 public class TestGenerator {
-
+//komentarz
 	public static void main(String[] args) {
 		Options options = OptionsCreator.createOptions();
 		CommandLineParser parser = new BasicParser();
