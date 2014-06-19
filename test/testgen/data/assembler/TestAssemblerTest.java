@@ -1,6 +1,6 @@
 package testgen.data.assembler;
 
 public class TestAssemblerTest {
-//pusto :(
-//dlaczego
+//pusto tu :(
+//
 }
