@@ -19,7 +19,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import testgen.cmd.OptionsCreator;
-import testgen.data.assembler.TestAsembler;
+import testgen.data.assembler.TestAssembler;
 import testgen.data.io.XmlReader;
 import testgen.data.model.Test;
 
@@ -33,7 +33,7 @@ public class TestGenerator {
 		handleHelp(commandLine, options);
 		validateCommandLine(commandLine);
 
-		TestAsembler assembler = new TestAsembler();
+		TestAssembler assembler = new TestAssembler();
 		Document document = readInput(commandLine);
 		Test test = assembler.assemblyFromXmlDocument(document);
 		

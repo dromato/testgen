@@ -12,7 +12,7 @@ import testgen.data.model.Question;
 import testgen.data.model.Section;
 import testgen.data.model.Test;
 
-public class TestAsembler {
+public class TestAssembler {
 	protected class SectionAssembler {
 		protected class QuestionAssembler {
 			private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
@@ -103,7 +103,7 @@ public class TestAsembler {
 
 	private SectionAssembler sectionAssembler;
 
-	public TestAsembler() {
+	public TestAssembler() {
 		this.sectionAssembler = new SectionAssembler();
 	}
 

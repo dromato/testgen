@@ -15,13 +15,13 @@ import testgen.data.model.Question;
 import testgen.data.model.Section;
 
 public class TestAssemblerTest {
-	private static TestAsembler assembler;
+	private static TestAssembler assembler;
 	private static Document inputXml;
 	private static testgen.data.model.Test expectedTest;
 
 	@BeforeClass
 	public static void setUp() throws ParserConfigurationException {
-		assembler = new TestAsembler();
+		assembler = new TestAssembler();
 		inputXml = buildXml();
 		expectedTest = new testgen.data.model.Test("test-name");
 		Question question = new Question("content");
