@@ -18,7 +18,7 @@ public class TestAssemblerTest {
 	private static TestAssembler assembler;
 	private static Document inputXml;
 	private static testgen.data.model.Test expectedTest;
-	
+
 	@BeforeClass
 	public static void setUp() throws ParserConfigurationException {
 		assembler = new TestAssembler();
@@ -46,7 +46,7 @@ public class TestAssemblerTest {
 		contentNode.setTextContent("content");
 		Element answerNode = document.createElement("answer");
 		answerNode.setTextContent("answer");
-		
+
 		questionNode.appendChild(contentNode);
 		questionNode.appendChild(answerNode);
 		sectionNode.appendChild(nameNode);
@@ -54,10 +54,10 @@ public class TestAssemblerTest {
 		testNode.appendChild(sectionNode);
 		testNode.appendChild(testNameNode);
 		document.appendChild(testNode);
-		
+
 		return document;
 	}
-	
+
 	@Test
 	public void testAssemblyTest() {
 		testgen.data.model.Test test = assembler.assemblyFromXmlDocument(inputXml);

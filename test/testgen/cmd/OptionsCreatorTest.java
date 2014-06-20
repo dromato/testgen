@@ -6,7 +6,7 @@ import org.apache.commons.cli.Options;
 import org.junit.Test;
 
 public class OptionsCreatorTest {
-	
+
 	@Test
 	public void optionCreationTest() {
 		Options options = OptionsCreator.createOptions();

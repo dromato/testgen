@@ -1,15 +1,20 @@
 <project name="TestGenerator" basedir="." default="jar">
 	<property name="dir.src" value="src" />
+	<property name="dir.testSrc" value="test" />
 	<property name="dir.build" value="build" />
 	<property name="dir.classes" value="${dir.build}/classes" />
+	<property name="dir.testClasses" value="${dir.build}/testClasses" />
 	<property name="dir.jar" value="${dir.build}/jar" />
 	<property name="dir.lib" value="lib" />
+	<property name="dir.testOutput" value="${dir.build}/testOutput" />
 	<property name="file.jar" value="${dir.jar}/${ant.project.name}.jar" />
 
 	<property name="main-class" value="testgen.app.TestGenerator" />
 
 	<path id="classpath">
 		<fileset dir="${dir.lib}" includes="**/*.jar" />
+		<pathelement location="${dir.classes}" />
+		<pathelement location="${dir.testClasses}" />
 	</path>
 
 	<target name="clean">
@@ -18,10 +23,24 @@
 
 	<target name="compile" depends="clean">
 		<mkdir dir="${dir.classes}" />
+		<mkdir dir="${dir.testClasses}" />
 		<javac srcdir="${dir.src}" destdir="${dir.classes}" classpathref="classpath" />
+		<javac srcdir="${dir.testSrc}" destdir="${dir.testClasses}" classpathref="classpath" />
 	</target>
 
-	<target name="jar" depends="compile">
+	<target name="test" depends="compile">
+		<junit fork="true" printsummary="yes" showoutput="true" haltonfailure="true" dir=".">
+			<classpath refid="classpath" />
+
+			<formatter type="plain" usefile="false" />
+
+			<batchtest todir="${dir.testOutput}">
+				<fileset dir="${dir.testClasses}" includes="**/*Test*" excludes="**/*$*" />
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="jar" depends="test">
 		<mkdir dir="${dir.jar}" />
 
 		<jar destfile="${file.jar}" basedir="${dir.classes}">
