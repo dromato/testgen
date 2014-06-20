@@ -39,7 +39,7 @@ public class TestGenerator {
 		
 		createOutputDirectory(commandLine.getOptionValue("o"));
 		
-		int nOfGroups = commandLine.hasOption("g") ? Integer.valueOf(commandLine.getOptionValue("g")) : 1;
+		int nOfGroups = commandLine.hasOption("g") ? Integer.valueOf(commandLine.getOptionValue("g")).intValue() : 1;
 		StringBuilder output;
 		for(int i = 0; i < nOfGroups; i++) {
 			output = assembler.assemblyStringFromTest(test, commandLine);
