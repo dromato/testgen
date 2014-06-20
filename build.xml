@@ -50,5 +50,7 @@
 				<attribute name="Main-Class" value="${main-class}" />
 			</manifest>
 		</jar>
+		<delete dir="${dir.classes}" />
+		<delete dir="${dir.testClasses}" />
 	</target>
 </project>
