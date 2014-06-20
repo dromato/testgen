@@ -1,3 +1,3 @@
 @ECHO OFF
-java -jar testgen.jar
+java -jar /build/jar/TestGenerator.jar
 PAUSE

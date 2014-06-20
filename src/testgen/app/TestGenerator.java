@@ -19,7 +19,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import testgen.cmd.OptionsCreator;
-import testgen.data.assembler.TestAssembler;
+import testgen.data.assembler.TestAsembler;
 import testgen.data.io.XmlReader;
 import testgen.data.model.Test;
 
@@ -33,7 +33,7 @@ public class TestGenerator {
 		handleHelp(commandLine, options);
 		validateCommandLine(commandLine);
 
-		TestAssembler assembler = new TestAssembler();
+		TestAsembler assembler = new TestAsembler();
 		Document document = readInput(commandLine);
 		Test test = assembler.assemblyFromXmlDocument(document);
 		
@@ -69,13 +69,6 @@ public class TestGenerator {
 		}
 	}
 
-	private static void validateCommandLine(CommandLine commandLine) {
-		if (!commandLine.hasOption("i") || !commandLine.hasOption("o")) {
-			System.out.println("Both input and output files are needed.");
-			System.exit(1);
-		}
-	}
-
 	private static CommandLine parseInputArgs(String[] args, Options options, CommandLineParser parser) {
 		try {
 			return parser.parse(options, args);
@@ -83,6 +76,13 @@ public class TestGenerator {
 			System.out.println(e.getMessage());
 			System.exit(1);
 			return null;
+		}
+	}
+	
+	private static void validateCommandLine(CommandLine commandLine) {
+		if (!commandLine.hasOption("i") || !commandLine.hasOption("o")) {
+			System.out.println("Both input and output files are needed.");
+			System.exit(1);
 		}
 	}
 
